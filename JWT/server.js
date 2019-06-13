@@ -9,13 +9,11 @@ const secret = 'your_secret_string'; // 加密用的SECRET字符串，可随意�
 app.use(bodyParser()); // 处理post请求的参数
 
 const login = ctx => {
-    // ctx.set('Access-Control-Allow-Origin', '*');
-
     const req = ctx.request.body;
     const userName = req.userName;
-    const expires = Date.now() + 3600000; // 设置超时时间为一小时后
+    const expires = Date.now() + 1000 * 60; // 为了方便测试，设置超时时间为一分钟后
     
-    var payload = { 
+    const payload = { 
         iss: userName,
         exp: expires
     };
@@ -26,20 +24,24 @@ const login = ctx => {
     };
 }
 const getUserName = ctx => {
-    console.log(ctx);
-
-    console.log(6666);
-    // ctx.set('Access-Control-Allow-Origin', '*');
-    const reqHeader = ctx.request.headers;
-   
-    const token = reqHeader.authorization.split(" ")[1];
-    var decoded = jwt.decode(token, secret);
-    ctx.response.body = {
-        data: {
-            username: decoded.iss,
-        },
-        msg: '获取用户名成功'
-    };
+    const token = ctx.get('authorization').split(" ")[1];
+    const payload = jwt.decode(token, secret);
+    
+    // 每次请求只判断Token是否过期，不重新去更新Token过期时间(更新不更新Token的过期时间主要看实际的应用场景)
+    if(Date.now() >  payload.exp) {
+        ctx.response.body = {
+            errorMsg: 'Token已过期，请重新登录'
+        };
+    } else {
+        ctx.response.body = {
+            data: {
+                username: payload.iss,
+            },
+            msg: '获取用户名成功',
+            errorMsg: ''
+        };
+    }
+    
 }
 app.use(cors());
 app.use(route.post('/login', login));
