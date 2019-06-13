@@ -43,6 +43,13 @@
             headers:{
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
+            // body: JSON.stringify({
+            //     userName,
+            //     password
+            // }),
+            // headers:{
+            //     'Content-Type': 'application/json'
+            // },
             mode: 'cors' // no-cors, cors, *same-origin
         })
             .then(function (response) {
@@ -53,7 +60,8 @@
                 document.cookie = `token=${res.data}`;
                 localStorage.setItem('token', res.data);
                 localStorage.setItem('token_exp', new Date().getTime());
-                alert(res.msg);
+                // alert(res.msg);
+                console.log('本地测试', res);
             })
             .catch(err => {
                 message.error(`本地测试错误${err.message}`);
@@ -71,20 +79,15 @@
             mode: 'cors' // no-cors, cors, *same-origin
         })
             .then(function (response) {
+                console.log(333, response.headers['x-a']);
                 return response.json();
             })
             .then(function (res) {
-                console.log('返回用户信息结果', res);
-                if(res.errorMsg !== '') {
-                    alert(res.errorMsg);
-                    username.innerHTML = '';
-                } else {
-                    username.innerHTML = `姓名：${res.data.username}`;
-                }
-                
+                console.log('返回用户名结果', res);
+                username.innerHTML = `姓名：${res.data.username}`;
             })
             .catch(err => {
-                console.error(err);
+                console.error('本地测试错误', err);
             });
     }
 </script>
