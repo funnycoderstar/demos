@@ -1,0 +1,30 @@
+{
+  "name": "demos",
+  "version": "1.0.0",
+  "description": "学习过程中的各种小例子",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funnycoderstar/demos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funnycoderstar/demos/issues"
+  },
+  "homepage": "https://github.com/funnycoderstar/demos#readme",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.3.1",
+    "jwt-simple": "^0.5.6",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-route": "^3.2.0"
+  }
+}
