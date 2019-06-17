@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JWT-demo</title>
+    <style>
+        .login-wrap {
+            height: 100px;
+            width: 200px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-wrap">
+        <input type="text" placeholder="用户名" class="userName">
+        <br>
+        <input type="password" placeholder="密码" class="password">
+        <br>
+        <br>
+        <button class="btn">登陆</button>
+    </div>
+    
+    <button class="btn1">获取用户名</button>
+</body>
+<script>
+    var btn = document.querySelector('.btn');
+    
+    btn.onclick = function () {
+        var userName = document.querySelector('.userName').value;
+        var password = document.querySelector('.password').value;
+        
+        fetch('http://localhost:3200/login', {
+            method: 'POST', 
+            body: `userName=${userName}&password=${password}`,
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            // body: JSON.stringify({
+            //     userName,
+            //     password
+            // }),
+            // headers:{
+            //     'Content-Type': 'application/json'
+            // },
+            mode: 'cors' // no-cors, cors, *same-origin
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (res) {
+                console.log('本地测试', res);
+            })
+            .catch(err => {
+                console.error('本地测试错误', err);
+            });
+    }
+    
+</script>
+
+</html>
