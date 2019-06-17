@@ -23,7 +23,11 @@ npm i -g http-server
 ```
 更多可以参考[如何启动一个本地静态服务器](https://github.com/funnycoderstar/blog/issues/72)
 
-
+### mongo
+```js
+docker pull mongo
+docker run --name mongodb -p 27017:27017 mongo
+```
 
 ## 说明
 以上这些例子本人均在浏览器和命令行进行过测试，如果问题欢迎PR或者联系本人😆
