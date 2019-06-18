@@ -8,6 +8,7 @@ app.use(bodyParser()); // 处理post请求的参数
 
 const login = ctx => {
     const req = ctx.request.body;
+    console.log(req);
     const userName = req.userName;
     ctx.response.body = {
         data: {
