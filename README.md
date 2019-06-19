@@ -25,9 +25,11 @@ npm i -g http-server
 
 ### mongo
 ```js
+brew cask install docker
 docker pull mongo
 docker run --name mongodb -p 27017:27017 mongo
 ```
+https://hub.docker.com/
 
 ## 说明
 以上这些例子本人均在浏览器和命令行进行过测试，如果问题欢迎PR或者联系本人😆

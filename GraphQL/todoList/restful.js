@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const Json = require('koa-json');
 const BodyParser = require('koa-bodyparser');
 const TodoStorage = require('./todo-database');
+const cors = require('@koa/cors');
 
 const app = new Koa();
 const router = new Router();
@@ -35,7 +36,7 @@ router.put('/todo', async (ctx) => {
     await TodoStorage.done(_id, done);
     ctx.body = await TodoStorage.get(_id);
 })
-
+app.use(cors());
 app.use(Json());
 app.use(BodyParser());
 app.use(router.routes());

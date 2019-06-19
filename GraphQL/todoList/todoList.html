@@ -1,28 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
-<body>
-    <div>
-        <input type="text">
-        <button>提交</button>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
 
+        table,
+        th,
+        td {
+            padding: 5px;
+            border: 1px solid black;
+        }
+
+        .input-wrap {
+            margin-bottom: 20px;
+        }
+
+        .input-wrap input {
+            width: 200px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
         <div>
-            <p>待办事项</p>
+            <h1>restful接口</h1>
+            <div class="input-wrap">
+                <input type="text" v-model="content"> <button @click="addTodo">添加</button>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>内容</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="(item, index) in todoList">
+                        <td>{{item._id}}</td>
+                        <td>{{item.content}}</td>
+                        <td>{{item.done}}</td>
+                        <td>
+                            <button @click="updateTodo(item._id)">修改</button>
+                            <button @click="deleteTodo(item._id)">删除</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h1>graphQL接口</h1>
+                <div class="input-wrap">
+                    <input type="text" v-model="content1"> <button @click="addTodo1">添加</button>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>内容</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr v-for="(item, index) in todoList">
+                            <td>{{item._id}}</td>
+                            <td>{{item.content}}</td>
+                            <td>{{item.done}}</td>
+                            <td>
+                                <button @click="updateTodo1(item._id)">修改</button>
+                                <button @click="deleteTodo1(item._id)">删除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div>
-            <p>已办事项</p>
-        </div>
-        <div>
-            <p>删除事项</p>
-        </div>
-    </div>
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
-    
+    const GraphQlPreUrl = `http://localhost:4000/graphql`; // GraphQl接口
+    const preUrl = `http://localhost:4001`; // Restful接口
+    function Fetch(url, method, data) {
+        return new Promise((resolve, reject) => {
+            let options = {};
+            if (method !== 'GET') {
+                options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }
+            }
+            fetch(url, {
+                mode: 'cors', // no-cors, cors, *same-origin
+                method,
+                ...options,
+            }).then((res) => {
+                return res.json();
+            }).then(res => {
+                resolve(res);
+            }).catch(err => {
+                reject(err);
+            });
+        })
+    }
+    window.vm = new Vue({
+        el: '#app',
+        data: {
+            content: '',
+            content1: '',
+            todoList: [],
+        },
+        created() {
+            this.getTodos();
+            // this.getTodos1();
+        },
+        methods: {
+            // 以下是调用restful接口
+            async getTodos() {
+                const result = await Fetch(`${preUrl}/todos`, 'GET', '');
+                this.todoList = result;
+            },
+            async addTodo() {
+                await Fetch(`${preUrl}/todo`, 'POST', {
+                    content: this.content
+                });
+                this.getTodos();
+            },
+            async updateTodo(id) {
+                await Fetch(`${preUrl}/todo`, 'PUT', {
+                    _id: id,
+                    done: true,
+                });
+                this.getTodos();
+            },
+            async deleteTodo(id) {
+                await Fetch(`${preUrl}/todo`, 'DELETE', {
+                    _id: id,
+                });
+                this.getTodos();
+            },
+            // 以下是使用GraphQL写的接口
+            async getTodos1() {
+                const query = `{
+                            todo {
+                                _id,
+                                content,
+                                done
+                            }
+                    }`
+                const result = await Fetch(GraphQlPreUrl, 'POST', { query });
+                this.todoList = result.data.todo;
+            },
+            async addTodo1() {
+                const query = `mutation{
+                        addTodo(content: "${this.content1}") {
+                            content
+                        }
+                    }`;
+                await Fetch(GraphQlPreUrl, 'POST', { query });
+                this.getTodos1();
+            },
+            async updateTodo1(id) {
+                const query = `mutation {
+                    updateTodo(_id: "${id}", done: true){
+                        content,
+                        _id,
+                        done
+                    }
+                }`;
+                await Fetch(GraphQlPreUrl, 'POST', { query });
+                this.getTodos1();
+            },
+            async deleteTodo1(id) {
+                const query = `mutation {
+                    deleteTodo(_id: "${id}")
+                }`;
+                await Fetch(GraphQlPreUrl, 'POST', { query });
+                this.getTodos1();
+            },
+
+
+        }
+    });
+
 </script>
+
 </html>
