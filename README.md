@@ -6,6 +6,9 @@
 - [JWT小示例](https://github.com/funnycoderstar/demos/tree/master/JWT)
 - [koa-cors源码解析](https://github.com/funnycoderstar/demos/tree/master/koa/koa-cors)
 - [koa-bodyparser源码解析](https://github.com/funnycoderstar/demos/tree/master/koa/koa-bodyparser)
+- [简单的富文本编辑器](https://github.com/funnycoderstar/demos/blob/master/vue-project/src/views/RichTextEditor/RichTextEditor.vue)
+- [从零开始实现一个cli工具](https://github.com/funnycoderstar/demos/tree/master/super-cli)
+
 
 ## 其他
 ### 安装 [nodemon](https://github.com/remy/nodemon)
