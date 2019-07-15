@@ -23,6 +23,7 @@ const login = ctx => {
         msg: '登陆成功'
     };
 }
+
 const getUserName = ctx => {
     const token = ctx.get('authorization').split(" ")[1];
     const payload = jwt.decode(token, secret);

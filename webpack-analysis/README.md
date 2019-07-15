@@ -171,7 +171,11 @@ module.exports = {
 ```
 我们主要关注最后的这几行代码，可以看到, 使用默认输出（export default & import）的 a.js文件中，函数a1和函数a2都被打包进去了，使用正常输出（export & import）的b.js文件中，只有用到的函数b1被打包进去了。
 
+为什么默认输出不能做tree shaking呢，是因为js无法做静态语法分析，比如 动态调用，比如对象的中括号语法，属性可以是任意对象，无法准确识别。
 
+## 其他
+只有在webapck4.x的“production”模式才有tree shaking，具体原因引用文档：
+> 运行 tree shaking 需要 [ModuleConcatenationPlugin](https://webpack.docschina.org/plugins/module-concatenation-plugin)。通过 mode: "production" 可以添加此插件。如果你没有使用 mode 设置，记得手动添加 ModuleConcatenationPlugin。
 
 
 

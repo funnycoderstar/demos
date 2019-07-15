@@ -4,7 +4,8 @@
   "description": "学习过程中的各种小例子",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:tree": "webpack --config ./webpack-analysis/config/webpack.config.tree.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +31,13 @@
     "koa-route": "^3.2.0",
     "koa-router": "^7.4.0",
     "mongoose": "^5.6.0"
-  }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.6"
+  },
+  "sideEffects": true
 }
