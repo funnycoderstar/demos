@@ -141,10 +141,17 @@ const path = require('path');
 
 > webpack-dev-server在编译之后不会写到任何输入文件，而是将bundle文件保存在内存中，然后将它们serve到server中，就好像它们是挂载在server根路径上的真实文件一样。
 
+webpack-dev-server中调用了webpack-dev-middleware和webpack-hot-middleware
+webpack-dev-middleware:是一个封装器（wrapper）,它可以把webpack处理过得文件发送到一个server。webpack-dev-server在内部使用了它，它也可以作为独立的package来使用
+webpack-hot-middleware: 在运行时更新所有类型的模块，而无需完全刷新。webpack-dev-server在内部使用了它，只需要配置一下就可以，它也可以作为独立的package来使用。
+
+增量编译：只编译修改的部分，没修改的部分不重新编译
+热更新：处理的是编译完成后的页面刷新部分，只刷新修改的内容，而无需重新刷新
+
 # TypeScript
 npm install --save-dev typescript ts-loader
 
 # 环境变量
 
-# 模块解析
+
 
