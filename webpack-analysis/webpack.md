@@ -141,3 +141,10 @@ const path = require('path');
 
 > webpack-dev-server在编译之后不会写到任何输入文件，而是将bundle文件保存在内存中，然后将它们serve到server中，就好像它们是挂载在server根路径上的真实文件一样。
 
+# TypeScript
+npm install --save-dev typescript ts-loader
+
+# 环境变量
+
+# 模块解析
+
