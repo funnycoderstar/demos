@@ -1,7 +1,10 @@
 {
     "plugins": [
         [
-          "./babel/babel-plugin-reverse-name.js"
+            "./babel/babel-plugin-extract.js",
+            {
+                "library": "lodash"
+            }
         ]
       ]
 }
