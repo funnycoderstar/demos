@@ -12,6 +12,7 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
+    mode: 'production',
     module: {
         rules: [
             {
@@ -39,6 +40,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: '渐进式网络应用程序',
+            
         }),
         new WorkboxPlugin.GenerateSW({
             // 这些选项帮助快速启用ServiceWorkers

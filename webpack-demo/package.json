@@ -5,8 +5,9 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --config ./webpack.config.js",
     "build:loader": "webpack --config ./webpack.config.loader.js",
+    "build:babel": "webpack --config ./webpack.config.babel.js",
     "start": "http-server dist"
   },
   "keywords": [],
@@ -14,6 +15,9 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/types": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.0.0",
     "file-loader": "^4.0.0",

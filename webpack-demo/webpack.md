@@ -116,12 +116,68 @@ module.exports = {
 ```
 
 ## 编写一个简单的babel plugin
-需求： 编写一个模块按需加载的babel插件
+需求： 编写一个将js内容倒序的babel插件
+
+babel-plugin-reverse-name.js
+```js
+const visitor = {
+    Identifier(path) {
+        const name = path.node.name;
+        path.node.name = name
+            .split("")
+            .reverse()
+            .join("");
+    },
+}
+
+module.exports = function(babel) {
+    return {
+        visitor
+    }
+}
+
+```
+.babelrc
+```js
+{
+    "plugins": [
+        [
+          "./babel/babel-plugin-reverse-name.js"
+        ]
+      ]
+}
+```
+webpack配置文件
+```js
+const path = require('path');
+const { CleanWebpackPlugin }= require('clean-webpack-plugin');
+
+module.exports = {
+    entry: {
+        app: './main.js',
+    },
+    mode: 'development',
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                use: 'babel-loader'
+            }
+        ]
+    },
+    output: {
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'babelDist'),
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+    ]
+}
+```
 
 ## 参考
-[4 个实例入门并掌握「Webpack4」(三)](https://juejin.im/post/5cb01f32e51d456e5e035ef7)
-[从0实现一个webpack loader](https://juejin.im/post/5cca59c4f265da038d0b5348)
-[手把手教你撸一个 Webpack Loader](https://juejin.im/post/5a698a316fb9a01c9f5b9ca0)
+- [4 个实例入门并掌握「Webpack4」(三)](https://juejin.im/post/5cb01f32e51d456e5e035ef7)
+- [从0实现一个webpack loader](https://juejin.im/post/5cca59c4f265da038d0b5348)
+- [手把手教你撸一个 Webpack Loader](https://juejin.im/post/5a698a316fb9a01c9f5b9ca0)
+- [babel插件文档](https://github.com/brigand/babel-plugin-handbook/blob/master/translations/zh-Hans/README.md#writing-your-first-babel-plugin)
 
-https://github.com/ITxiaohao/webpack4-learn
-https://github.com/chiwent/blog/issues/14

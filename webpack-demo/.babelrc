@@ -1,0 +1,7 @@
+{
+    "plugins": [
+        [
+          "./babel/babel-plugin-reverse-name.js"
+        ]
+      ]
+}
