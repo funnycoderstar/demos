@@ -3,9 +3,9 @@ const { CleanWebpackPlugin }= require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './main.js',
+        app: './index.js',
     },
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {
@@ -19,6 +19,6 @@ module.exports = {
         path: path.resolve(__dirname, 'babelDist'),
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
     ]
 }

@@ -1,15 +1,15 @@
-{
-    "presets": [
+module.exports = {
+    presets: [
         [
             "@babel/preset-env",
             {
                 "useBuiltIns": "usage",
                 "corejs": 3,
-                "modules": false
+                "modules": false,
             }
         ]
     ],
-    "plugins": [
-        ["@babel/plugin-transform-runtime"]
-    ]
+    // plugins: [
+    //     ['@babel/plugin-transform-runtime', { corejs: 2 }]
+    // ]
 }
