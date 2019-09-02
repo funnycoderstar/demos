@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:tree": "webpack --config ./webpack-analysis/config/webpack.config.tree.js",
-    "build:code": "webpack --config ./webpack-analysis/config/webpack.config.code.js"
+    "build:code": "webpack --config ./webpack-analysis/config/webpack.config.code.js",
+    "build:happy": "webpack --config ./webpack-analysis/config/webpack.config.happy.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,11 @@
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "happypack": "^5.0.1",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "style-loader": "^1.0.0",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.6"
   },

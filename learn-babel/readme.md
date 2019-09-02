@@ -284,7 +284,7 @@ console.log((0, _includes["default"])(_context = [1, 2, 3]).call(_context, 2));
 @babel/runtime-corejs2无法为实例方法提供 polyfill, 而@babel/runtime-corejs3可以
 
 
-以下配置
+以下配置: 
 1. 将公共的 helper函数 抽出，可以提供复用，减小代码体积
 2. 提供了不会污染全局作用域的polyfill
 ```js
